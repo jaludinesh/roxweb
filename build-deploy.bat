@@ -1,6 +1,6 @@
 @echo off
 echo 🧹 Cleaning up old docs folder...
-rmdir /s /q docs
+if exist docs rmdir /s /q docs
 
 echo 🏗️ Running Vite build...
 call npm run build
@@ -9,8 +9,11 @@ if %errorlevel% neq 0 (
   exit /b %errorlevel%
 )
 
-echo 📄 Copying index.html to 404.html...
-copy docs\index.html docs\404.html
+echo 📄 Copying index.html to 404.html inside dist...
+copy dist\index.html dist\404.html
+
+echo 📁 Renaming dist to docs...
+rename dist docs
 
 echo 📦 Committing and pushing to GitHub...
 git add -A
