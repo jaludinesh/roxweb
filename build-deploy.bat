@@ -5,15 +5,12 @@ rmdir /s /q docs
 echo 🏗️ Running Vite build...
 call npm run build
 if %errorlevel% neq 0 (
-  echo ❌ Build failed. Aborting deployment.
+  echo ❌ Build failed. Aborting.
   exit /b %errorlevel%
 )
 
 echo 📄 Copying index.html to 404.html...
-copy dist\index.html dist\404.html
-
-echo 📁 Renaming dist to docs...
-rename dist docs
+copy docs\index.html docs\404.html
 
 echo 📦 Committing and pushing to GitHub...
 git add -A
